@@ -1,0 +1,15 @@
+{
+    "name": "psychoserver",
+    "version": 2,
+    "public": true,
+    "build":{
+        "src": "src/server.ts",
+        "use": "@vercel/node"
+    },
+    "routes":[
+        {
+            "src": "/(.*)",
+            "dest": "src/server.ts"
+        }
+    ]
+}

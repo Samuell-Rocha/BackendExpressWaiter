@@ -1,0 +1,122 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+//criar uma migração: yarn prisma migrate dev
+
+model Access {
+  id         String    @id @default(uuid())
+  name       String    @unique
+  created_at DateTime? @default(now())
+
+  userAccess UserAccess[]
+
+  @@map("permissions")
+}
+
+model UserAccess {
+  id         String    @id @default(uuid())
+  created_at DateTime? @default(now())
+
+  User   User?   @relation(fields: [userId], references: [id])
+  userId String?
+
+  Access   Access? @relation(fields: [accessId], references: [id])
+  accessId String?
+
+  @@map("useraccess")
+}
+
+model User {
+  id         String    @id @default(uuid())
+  name       String
+  email      String    @unique
+  password   String
+  created_at DateTime? @default(now())
+  update_at  DateTime? @default(now())
+
+  userAccess UserAccess[]
+
+  @@map("users")
+}
+
+model Table {
+  id     Int    @id
+  qrcode String
+
+  Order Order[]
+
+  @@map("table")
+}
+
+model Category {
+  id         String    @id @default(uuid())
+  name       String
+  created_at DateTime? @default(now())
+  upadate_at DateTime? @default(now())
+
+  products Product[]
+
+  @@map("categories")
+}
+
+model Product {
+  id             String    @id @default(uuid())
+  name           String
+  price          Decimal   @default(0.0) @db.Decimal(6, 2)
+  description    String
+  active         Boolean   @default(false)
+  stock          Boolean   @default(true)
+  banner         String
+  estimated_time String
+  created_at     DateTime? @default(now())
+
+  category    Category @relation(fields: [category_id], references: [id])
+  category_id String
+
+  orderitens OrderItem[]
+
+  @@map("products")
+}
+
+model Order {
+  id           String    @id @default(uuid())
+  assessment   Int?
+  name         String? //Opcional
+  status       String
+  created_at   DateTime? @default(now())
+  update_at    DateTime? @default(now())
+  concluded_at DateTime?
+  total        Decimal   @default(0.0) @db.Decimal(6, 2)
+
+  table    Table @relation(fields: [table_id], references: [id])
+  table_id Int
+
+  OrderItem OrderItem[]
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id         String    @id @default(uuid())
+  amount     Int
+  total      Decimal   @default(0.0) @db.Decimal(6, 2)
+  price      Decimal   @default(0.0) @db.Decimal(6, 2)
+  created_at DateTime? @default(now())
+  update_at  DateTime? @default(now())
+
+  order      Order   @relation(fields: [order_id], references: [id])
+  product    Product @relation(fields: [product_id], references: [id])
+  order_id   String
+  product_id String
+
+  @@map("OrderItens")
+}
