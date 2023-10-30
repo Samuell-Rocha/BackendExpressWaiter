@@ -108,7 +108,7 @@ export default function User({ users }: HomeProps) {
             <article className={styles.listusers}>
               {userList.length === 0 && (
                 <span className={styles.emptyList}>
-                  Nenhuma categoria encontrada
+                  Nenhum usuario encontrado
                 </span>
               )}
 

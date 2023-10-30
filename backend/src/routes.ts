@@ -25,6 +25,7 @@ import { CreateProductController } from "./controllers/product/CreateProductCont
 import { ListProductController } from "./controllers/product/ListProductController";
 import { RemoveProductController } from "./controllers/product/RemoveProductController";
 import { ListProductReportController } from "./controllers/product/ListProductReportController";
+import { UpdateProductController } from "./controllers/product/UpdateProductController";
 
 import { ListOrderController } from "./controllers/order/ListOrderController";
 import { CreateOrderController } from "./controllers/order/CreateOrderController";
@@ -88,6 +89,7 @@ router.post('/product', isAutenticated(["Administrador"]), upload.single('file')
 router.get('/product/list', new ListProductController().handle)
 router.delete('/product', isAutenticated(["Administrador"]), new RemoveProductController().handle)
 router.get('/products/report', new ListProductReportController().handle)
+router.put('/product', new UpdateProductController().handle)
 
 //--Rotas Order --
 router.post('/order', new CreateOrderController().handle)

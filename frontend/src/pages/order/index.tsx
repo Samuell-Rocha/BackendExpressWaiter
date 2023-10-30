@@ -426,7 +426,7 @@ export default function Product({ orders }: HomeProps) {
                           id="Entreguar"
                           title="Entreguar"
                           className={styles.button}
-                          onClick={() => handleOpenModalView(item.id)}
+                          onClick={() => handleOpenModalTake(item.id)}
                         >
                           <a>
                             <MdLunchDining size={24} color="#d67600" />
@@ -439,7 +439,7 @@ export default function Product({ orders }: HomeProps) {
                           id="Finalizar"
                           title="Finalizar"
                           className={styles.button}
-                          onClick={() => handleOpenModalView(item.id)}
+                          onClick={() => handleOpenModalFinish(item.id)}
                         >
                           <a>
                             <BiSelectMultiple size={24} color="#3fffa3" />

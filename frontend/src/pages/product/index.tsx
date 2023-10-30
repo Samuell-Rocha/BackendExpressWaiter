@@ -58,7 +58,7 @@ export default function Product({ productList, categoryList }: ProductProps) {
   async function handleReport() {
     try {
       const apiClient = setupAPIClient();
-      const response = await apiClient.get("/users/list")
+      const response = await apiClient.get("/users/list");
 
       const date = new Date().toLocaleString();
 
@@ -147,25 +147,32 @@ export default function Product({ productList, categoryList }: ProductProps) {
       params: {
         category_id: category_id,
         id: product_id,
+        stock: "true",
       },
     });
 
     setModalProduct(response.data);
     setModalVisible(true);
-
   }
 
   async function handleDescontinue(id: string) {
-
     const apiClient = setupAPIClient();
 
     try {
-      const response = await apiClient.get("/product/list",{
-        params:{
-          id: id,
-          stock: 'true'
-        }
+      console.log(id);
+      await apiClient.put("/product", {
+        id: id,
+        stock: "false",
+        active: "false",
       });
+
+      const response = await apiClient.get("/product/list", {
+        params: {
+          stock: "true",
+        },
+      });
+
+      setProducts(response.data);
 
       setModalVisible(false);
 
@@ -180,9 +187,9 @@ export default function Product({ productList, categoryList }: ProductProps) {
 
     if (event.target.value === "Tudo") {
       const response = await apiClient.get("/product/list", {
-        params:{
-          stock: 'true'
-        }
+        params: {
+          stock: "true",
+        },
       });
       setProducts(response.data);
     }
@@ -191,7 +198,7 @@ export default function Product({ productList, categoryList }: ProductProps) {
         const response = await apiClient.get("/product/list", {
           params: {
             category_id: categories[x].id,
-            stock: 'true'
+            stock: "true",
           },
         });
         setProducts(response.data);
@@ -333,10 +340,10 @@ export const getServerSideProps = CanSSRAuth(async (ctx) => {
   const apiClient = setupAPIClient(ctx);
 
   const responseProducts = await apiClient
-    .get("/product/list",{
-      params:{
-        stock: 'true'
-      }
+    .get("/product/list", {
+      params: {
+        stock: "true",
+      },
     })
     .catch((error) => {
       if (error.responseProducts) {
@@ -344,7 +351,6 @@ export const getServerSideProps = CanSSRAuth(async (ctx) => {
       }
     });
   const responseCategories = await apiClient.get("/listcategory");
-
 
   return {
     props: {

@@ -51,7 +51,7 @@ export function ModalDescontinue({
         <FiX size={45} color="#f34748" />
       </button>
       <div className={styles.container}>
-        <h2>Voce tem certeza que deseja descontinuar este item?{item[0].id}</h2>
+        <h2>Você tem certeza que deseja descontinuar este item?</h2>
 
         <button
           className={styles.button}

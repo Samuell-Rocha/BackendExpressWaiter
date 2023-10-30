@@ -8,7 +8,7 @@ interface ProductRequest {
 
 class ListProductService {
   async execute({ category_id, product_id, stock }) {
-    var convertStock = Boolean(stock);
+    var convertStock = Boolean(stock == 'true');
 
     const findByCategory = await prismaClient.product.findMany({
       where: {
