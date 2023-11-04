@@ -49,8 +49,9 @@ model User {
 }
 
 model Table {
-  id     Int    @id
+  id Int @id
   qrcode String
+  nameqrcode String
 
   Order Order[]
 

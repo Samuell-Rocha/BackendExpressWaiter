@@ -16,6 +16,15 @@ class ListItemOrderService{
             name:true
           }
           
+        },
+        order:{
+          select:{
+            assessment: true,
+            name: true,
+            total: true,
+            status: true,
+            table_id: true
+          }
         }
       }
     });

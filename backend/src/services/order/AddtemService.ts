@@ -10,6 +10,9 @@ interface ItemRequest {
 
 class AddItemService {
   async execute({ order_id, product_id, amount, price, total }: ItemRequest) {
+
+
+
     const verifySatus = await prismaClient.product.findFirst({
       where: {
         id: product_id,
@@ -27,7 +30,7 @@ class AddItemService {
         product_id: product_id,
         amount: amount,
         price: price,
-        total: total.toFixed(2)
+        total: total
       },
     });
 

@@ -12,6 +12,18 @@ class ListOrderService{
             where:{
                 id: order_id
             },
+            include:{
+                OrderItem:{
+                    include:{
+                        product:{
+                            select:{
+                                name: true
+                            }
+                        }
+                    }
+                }
+            },
+
             orderBy:{
                 created_at: 'desc'
             }

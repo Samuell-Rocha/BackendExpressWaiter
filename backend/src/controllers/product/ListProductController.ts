@@ -16,7 +16,7 @@ class ListProductController {
         const products = await listProductService.execute({
             product_id: product_id,
             category_id: category_id,
-            stock: stock
+            stock: stock,
         })
 
         return response.json(products);

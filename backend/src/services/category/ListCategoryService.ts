@@ -6,12 +6,13 @@ interface CategoryRequest {
 }
 
 class ListCategoryService{
-    async execute({category_id}){
+    async execute({category_id, name}){
 
         //array de categorias
         const category = await prismaClient.category.findMany({
          where:{
-            id:category_id
+            id:category_id,
+            name: name
          }
         })
 

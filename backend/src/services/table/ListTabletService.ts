@@ -12,7 +12,7 @@ class ListTabletService {
     const findByTable = await prismaClient.table.findMany({
       where: {
         id: number,
-      },
+      }
     });
 
     return findByTable;

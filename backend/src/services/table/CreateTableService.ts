@@ -3,10 +3,11 @@ import prismaClient from "../../prisma";
 interface TableRequest {
     table_id: string;
     qrcode: string;
+    nameqrcode: string
 }
 
 class CreateTableService {
-    async execute({table_id, qrcode}: TableRequest) {
+    async execute({table_id, qrcode, nameqrcode}: TableRequest) {
 
 
        const number = parseInt(table_id)
@@ -24,7 +25,8 @@ class CreateTableService {
         const tables = await prismaClient.table.create({
             data: {
                 id: number,
-                qrcode: qrcode
+                qrcode: qrcode,
+                nameqrcode: nameqrcode
             }
         })
 
